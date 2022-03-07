@@ -51,7 +51,7 @@ func isValidCreditCardNumber(str string) bool {
 	}
 	return sum%10 == 0
 }
-
+/***
 ## Function #2: Known/supported card schemes
 
 Card Scheme (Visa, MasterCard, JCB, etc) can be detected by the first digits of the card and the length of the card. 
@@ -66,7 +66,7 @@ Card Scheme (Visa, MasterCard, JCB, etc) can be detected by the first digits of 
 | Visa             | 4                | 13,16,19         | 4012888888881881 |
 | MasterCard       | 2221-2720, 51-55 | 16               | 5105105105105100 |
 
-
+*/
 func getSupportedCardSchemes(str string) string {
 	str = strings.Join(strings.Fields(str), "")
 	num := 0
