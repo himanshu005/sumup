@@ -51,3 +51,46 @@ func isValidCreditCardNumber(str string) bool {
 	}
 	return sum%10 == 0
 }
+
+## Function #2: Known/supported card schemes
+
+Card Scheme (Visa, MasterCard, JCB, etc) can be detected by the first digits of the card and the length of the card. 
+
+**Example**
+
+| Scheme           | Ranges           | Number of Digits | Example number   |
+|---               |---               |---               |---
+| American Express | 34,37            | 15               | 378282246310005  |
+| JCB              | 3528-3589        | 16-19            | 3530111333300000 |
+| Maestro          | 50, 56-58, 6     | 12-19            | 6759649826438453 |
+| Visa             | 4                | 13,16,19         | 4012888888881881 |
+| MasterCard       | 2221-2720, 51-55 | 16               | 5105105105105100 |
+
+
+func getSupportedCardSchemes(str string) string {
+	str = strings.Join(strings.Fields(str), "")
+	num := 0
+	for i := 0; i < len(str); i++ {
+		s := str[i]
+		if s >= 48 && s <= 57 {
+			n, _ := strconv.Atoi(string(s))
+			l := len(str)
+			num = num*10 + n
+
+			if num == 4 && (l == 13 || l == 16 || l == 19) {
+				return "Visa"
+			} else if (num == 6 || num == 50 || (num >= 56 && num <= 58)) && (l >= 12 && l <= 19) {
+				return "Maestro"
+			} else if (num == 34 || num == 37) && l == 15 {
+				return "American Express"
+			} else if ((num >= 51 && num <= 55) || (num >= 2221 && num <= 2720)) && l == 16 {
+				return "MasterCard"
+			} else if (num >= 3528 && num <= 3589) && (l >= 16 || l <= 19) {
+				return "JCB"
+			}
+
+		}
+
+	}
+	return "none"
+}
